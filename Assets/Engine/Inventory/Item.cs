@@ -32,7 +32,7 @@ namespace SS3D.Engine.Inventory
 	    [Tooltip("the item prefab, you can click on the item name and drag from Unity's file explorer")]
         public GameObject prefab;
 
-	    [Tooltip("a point we use to know how the item should be oriented when held in a hand")]
+        [Tooltip("a point we use to know how the item should be oriented when held in a hand")]
         public Transform attachmentPoint;
 
         [Tooltip("same point but for the left hand, in cases where it's needed")]
@@ -293,6 +293,25 @@ namespace SS3D.Engine.Inventory
                 Vector3 rotatedPoint = RotatePointAround(parentPosition, position, eulerAngles);
                 rotatedPoint += new Vector3(0, position.z, position.y);
                 Gizmos.DrawWireMesh(handGuide, attachmentPointAlt.position, localRotation);
+            }
+
+            // Same for the Left Hand
+            if (attachmentPointAlt == null)
+            {
+                return;
+            }
+
+            if (meshFilter != null && meshFilter.sharedMesh != null)
+            {
+                Quaternion localRotation = attachmentPointAlt.localRotation;
+                Vector3 eulerAngles = localRotation.eulerAngles;
+                Vector3 parentPosition = attachmentPointAlt.parent.position;
+                Vector3 position = attachmentPointAlt.localPosition;
+                // Draw a wire mesh of the rotated model
+                Vector3 rotatedPoint = RotatePointAround(parentPosition, position, eulerAngles);
+                rotatedPoint += new Vector3(0, position.z, position.y);
+                Gizmos.DrawWireMesh(meshFilter.sharedMesh,
+                    rotatedPoint, localRotation);
             }
         }
 

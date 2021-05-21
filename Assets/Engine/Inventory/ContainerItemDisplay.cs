@@ -47,7 +47,7 @@ namespace SS3D.Engine.Inventory
 
             // Check if a custom attachment point should be used
             Transform attachmentPoint = item.attachmentPoint;
-            if (Mirrored && item.attachmentPointAlt != null)
+            if (Mirrored)
             {
                 attachmentPoint = item.attachmentPointAlt;
             }
